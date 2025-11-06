@@ -5,6 +5,7 @@ const RootLayout = () => {
   return (
     <View>
       <Text>Hello to our app</Text>
+      <Text>Hello to our app</Text>
     </View>
   );
 };
