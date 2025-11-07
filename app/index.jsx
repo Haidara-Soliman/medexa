@@ -30,11 +30,11 @@ export default function MedicalLoginScreen() {
         APPWRITE_DATABASE_ID,
         DOCTORS_COLLECTION_ID
       );
-      Alert.alert("✅ الاتصال ناجح", `عدد المستندات: ${result.total}`);
-      console.log("نتيجة الاتصال:", result);
+      Alert.alert("sucsseful connection", `count of records ${result.total}`);
+      console.log("state of response", result);
     } catch (error) {
-      Alert.alert("❌ فشل الاتصال", error.message);
-      console.error("خطأ في الاتصال:", error);
+      Alert.alert("faild connection", error.message);
+      console.error("faild connection", error);
     }
   };
 
