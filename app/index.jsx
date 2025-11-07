@@ -4,6 +4,13 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 import {
+  client,
+  databases,
+  APPWRITE_DATABASE_ID,
+  DOCTORS_COLLECTION_ID,
+} from "../lib/appwrite";
+
+import {
   View,
   Text,
   TextInput,
@@ -16,11 +23,26 @@ import { LinearGradient } from "expo-linear-gradient";
 export default function MedicalLoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  //from ai
   const handleSubmit = async () => {
-    // console.log("login form submitted: ", email, password);
-    console.log(client);
+    try {
+      const result = await databases.listDocuments(
+        APPWRITE_DATABASE_ID,
+        DOCTORS_COLLECTION_ID
+      );
+      Alert.alert("✅ الاتصال ناجح", `عدد المستندات: ${result.total}`);
+      console.log("نتيجة الاتصال:", result);
+    } catch (error) {
+      Alert.alert("❌ فشل الاتصال", error.message);
+      console.error("خطأ في الاتصال:", error);
+    }
   };
+
+  //from me
+  // const handleSubmit = async () => {
+  //   console.log("login form submitted: ", email, password);
+  //   console.log(client);
+  // };
 
   // const handleRoleSelect = (role) => {
   //   if (!email || !password) {
@@ -68,10 +90,7 @@ export default function MedicalLoginScreen() {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.roleButton}
-          onPress={() => handleSubmit("doctor")}
-        >
+        <TouchableOpacity style={styles.roleButton} onPress={handleSubmit}>
           <MaterialCommunityIcons name="doctor" size={40} color="#8b6ecb" />
           <Text style={styles.roleText}>I'm a{"\n"} doctor</Text>
         </TouchableOpacity>
